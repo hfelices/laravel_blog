@@ -64,10 +64,10 @@ return [
     */
 
     'logo' => 'Admin<b>Tool</b>',
-    'logo_img' => 'img/clicko-logo-final.png',
-    'logo_img_class' => 'brand-image  ',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img' => 'img/clicko-logo2.png',
+    'logo_img_class' => 'brand-image',
+    'logo_img_xl' => 'img/clicko-logo-final.png',
+    'logo_img_xl_class' => 'brand-image',
     'logo_img_alt' => 'Admin Logo',
 
     /*
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/clicko-logo2.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -130,11 +130,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-light',
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -167,7 +167,7 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'card-outline card-success',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
@@ -192,7 +192,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => '',
+    'classes_sidebar' => 'sidebar-light-warning elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => '',
     'classes_topnav_nav' => 'navbar-expand',
@@ -218,7 +218,7 @@ return [
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+    'sidebar_nav_animation_speed' => 600,
 
     /*
     |--------------------------------------------------------------------------
@@ -294,8 +294,22 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav' => true,
         ],
+        /*[
+
+            'text'         => 'link 1',
+            'url'          => '#',
+            'topnav_right' => true,
+
+        ],
+        [
+
+            'text'         => 'link 1',
+            'url'          => '#',
+            'topnav_user' => true,
+
+        ],*/
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
@@ -306,6 +320,8 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+
+        //Directiva Can -> sistema de roles
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -314,25 +330,30 @@ return [
         ],
         [
             'text'        => 'Dashboard',
-//            'route'       => 'admin.home',
+//          'route'       => 'admin.home',
             'url'         => 'admin',
             'class' => 'text-light',
             'icon'        => 'fas fa-fw  fa-tachometer-alt',
+            'icon_color' => 'green',
             'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'Administrador',
-
+        [
+            'header' => 'Administrador',
         ],
         [
             'text' => 'Categorías',
             'route'=> 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
+            'icon_color' => 'green',
+            'active'=> ['admin/categories*']
         ],
         [
             'text' => 'Etiquetas',
             'route'=> 'admin.tags.index',
             'icon' => 'fas fa-fw fa-tag',
+            'icon_color' => 'green',
+            'active'=> ['admin/tags*']
         ],
 
         [
@@ -373,23 +394,21 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'Opciones de Blog'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'       => 'Lista de posts',
+            'icon' => 'fas fa-fw fa-clipboard',
+            'icon_color' => 'green',
+            'route'        => 'admin.posts.index',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'       => 'Crear nuevo post',
+            'icon' => 'fas fa-fw fa-file',
+            'icon_color' => 'green',
+            'route'        => 'admin.posts.create',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -472,12 +491,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'asset' => true,
+                    'location' => 'vendor/sweetalert2/sweetalert2.all.min.js',
                 ],
             ],
         ],
@@ -543,5 +562,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

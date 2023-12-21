@@ -64,4 +64,17 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    public function adminlte_image(){
+        return asset('img/clicko-logo2.png');
+    }
+
+    public function adminlte_desc(){
+
+        return 'Administrador';
+    }
+
+    public function adminlte_profile_url(){
+        return 'profile/username';
+    }
 }

@@ -14,5 +14,11 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+   /* Swal.fire(
+        'Good Job!',
+        'You clicked the button!'
+    )*/
+    </script>
+
 @stop
