@@ -9,19 +9,29 @@
     <div class="card">
         <div class="card-body">
             {!! Form::open(['route' => 'admin.posts.store',]) !!}
+                {!! Form::hidden('user_id', auth()->user()->id )!!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre:') !!}
-                    {!! Form::text('name',null, ['class'=> 'form-control','placeholder' => 'Ingrese el nombre del post', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('name',null, ['class'=> 'form-control','placeholder' => 'Ingrese el nombre del post', 'autocomplete' => 'off', 'files'=> true]) !!}
+                    @error('name')
+                        <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', 'Slug:') !!}
                     {!! Form::text('slug',null, ['class'=> 'form-control','placeholder' => 'Ingrese el slug del post', 'readonly']) !!}
+                    @error('slug')
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('category_id', 'Categoría:') !!}
                     {!! Form::select('category_id',$categories,null, ['class'=> 'form-control']) !!}
+                    @error('category_id')
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -32,6 +42,11 @@
                             {{$tag->name}}
                         </label>
                     @endforeach
+
+                    @error('tags')
+                    <br>
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <p class="font-weight-bold">Estados</p>
@@ -45,15 +60,37 @@
                         Publicado
                     </label>
 
+                    @error('status')
+                    <br>
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
-
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="image-wrapper">
+                            <img id="picture" src="https://cdn.pixabay.com/photo/2023/12/17/09/47/door-8453898_1280.jpg" alt="imagen por defecto">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label  ('file','imagen que se mostrará en el post') !!}
+                            {!! Form::file ('file', ['class'=> 'form-control-file']) !!}
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     {!! Form::label('extract', 'Extracto:') !!}
                     {!! Form::textarea('extract',null, ['class'=> 'form-control']) !!}
+                    @error('extract')
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     {!! Form::label('body', 'Cuerpo del post:') !!}
                     {!! Form::textarea('body',null, ['class'=> 'form-control']) !!}
+                    @error('body')
+                    <small class="text-danger"> {{$message}}</small>
+                    @enderror
                 </div>
 
                 {!! Form::submit('Crear Post', ['class' =>'btn, btn-primary' ]) !!}
@@ -64,7 +101,20 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+
+        }
+
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -90,7 +140,18 @@
             .catch( error => {
                 console.error( error );
             } );
+        //Cambiar imagen
+        document.getElementById("file").addEventListener('change',cambiarImagen);
 
+        function cambiarImagen(event){
+            var file= event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = (event)=>{
+              document.getElementById("picture").setAttribute('src', event.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
     </script>
 
 @stop
