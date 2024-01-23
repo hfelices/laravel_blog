@@ -8,11 +8,11 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'admin.posts.store',]) !!}
+            {!! Form::open(['route' => 'admin.posts.store','files' => true]) !!}
                 {!! Form::hidden('user_id', auth()->user()->id )!!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre:') !!}
-                    {!! Form::text('name',null, ['class'=> 'form-control','placeholder' => 'Ingrese el nombre del post', 'autocomplete' => 'off', 'files'=> true]) !!}
+                    {!! Form::text('name',null, ['class'=> 'form-control','placeholder' => 'Ingrese el nombre del post', 'autocomplete' => 'off']) !!}
                     @error('name')
                         <small class="text-danger"> {{$message}}</small>
                     @enderror
@@ -74,8 +74,12 @@
                     <div class="col">
                         <div class="form-group">
                             {!! Form::label  ('file','imagen que se mostrará en el post') !!}
-                            {!! Form::file ('file', ['class'=> 'form-control-file']) !!}
+                            {!! Form::file ('file', ['class'=> 'form-control-file' , 'accept' => 'image/*']) !!}
+                            @error('file')
+                            <small class="text-danger"> {{$message}}</small>
+                            @enderror
                         </div>
+
                     </div>
                 </div>
                 <div class="form-group">

@@ -34,8 +34,16 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $post = Post::create($request->all());
 
+
+        $post = Post::create($request->all());
+        if ($request->file('file')){
+            $url = Storage::put('posts', $request->file('file'));
+
+            $post->image()->create([
+                'url' => $url
+            ]);
+        }
         if ($request->tags){
             $post->tags()->attach($request->tags);
         }
