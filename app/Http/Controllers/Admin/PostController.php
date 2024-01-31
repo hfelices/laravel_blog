@@ -7,7 +7,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
@@ -32,7 +32,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
 
 
@@ -63,7 +63,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post','categories','tags'));
     }
 
     /**
