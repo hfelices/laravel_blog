@@ -6,10 +6,15 @@
 @stop
 
 @section('content')
+    @if(session('info'))
+        <div class="alert alert-success">
+            <strong> {{session('info') }}</strong>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
-            {!! Form::model($post,['route' => 'admin.posts.update',$post,'files' => true , 'method'=>'put']) !!}
-            {!! Form::hidden('user_id', auth()->user()->id )!!}
+            {!! Form::model($post,['route' => ['admin.posts.update', $post],'files' => true , 'method' => 'put']) !!}
+
 
             @include('admin.posts.partials.form')
 

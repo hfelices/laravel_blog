@@ -11,11 +11,9 @@ class PostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if ($this->user_id == auth()->user()->id){
-            return true;
-        }else{
-            return false;
-        }
+
+        return true;
+
     }
 
     /**
@@ -25,6 +23,8 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $post=$this->route()->parameter('post');
+
         $rules = [
             'name' => 'required',
             'slug' => 'required|unique:posts',
@@ -32,6 +32,9 @@ class PostRequest extends FormRequest
             'file' => 'image',
         ];
 
+        if($post){
+            $rules['slug'] = 'required|unique:posts,slug,'. $post->id;
+        }
         if ($this->status == 2){
             $rules = array_merge($rules,[
                 'category_id' => 'required',

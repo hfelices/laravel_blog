@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             {!! Form::open(['route' => 'admin.posts.store','files' => true]) !!}
-                {!! Form::hidden('user_id', auth()->user()->id )!!}
+
 
             @include('admin.posts.partials.form')
 
